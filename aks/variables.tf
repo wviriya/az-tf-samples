@@ -1,8 +1,8 @@
 variable "client_id" {
-    default = "07e509a1-bd63-4703-aff4-79fb2fd28257"
+    default = "__tf-clientid__"
 }
 variable "client_secret" {
-    default = "d3e25f53-f604-4fab-b0a1-6b31fe17c649"
+    default = "__tf-clientsecret__"
 }
 
 variable "agent_count" {

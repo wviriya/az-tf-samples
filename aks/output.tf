@@ -18,6 +18,10 @@ output "cluster_password" {
     value = azurerm_kubernetes_cluster.k8s.kube_config.0.password
 }
 
+output "sp_id" {
+    value = azurerm_kubernetes_cluster.k8s.identity.0.principal_id
+}
+
 output "kube_config" {
     value = azurerm_kubernetes_cluster.k8s.kube_config_raw
 }

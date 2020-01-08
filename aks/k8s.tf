@@ -159,24 +159,6 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     resource_group_name = azurerm_resource_group.k8s.name
     dns_prefix          = var.dns_prefix
 
-    linux_profile {
-        admin_username = "ubuntu"
-
-        ssh_key {
-            key_data = file(var.ssh_public_key)
-        }
-    }
-
-    addon_profile {
-        http_application_routing {
-          enabled = false
-        }
-        oms_agent {
-          enabled                    = true
-          log_analytics_workspace_id = azurerm_log_analytics_workspace.test.id
-        }
-    }
-
     default_node_pool {
         name            = "agentpool"
         node_count      = var.aks_agent_count
@@ -194,6 +176,24 @@ resource "azurerm_kubernetes_cluster" "k8s" {
         dns_service_ip     = var.aks_dns_service_ip
         docker_bridge_cidr = var.aks_docker_bridge_cidr
         service_cidr       = var.aks_service_cidr
+    }
+
+    role_based_access_control {
+        enabled = true
+    }
+
+    identity {
+        type = "SystemAssigned"
+    }
+
+    addon_profile {
+        http_application_routing {
+          enabled = false
+        }
+        oms_agent {
+          enabled                    = true
+          log_analytics_workspace_id = azurerm_log_analytics_workspace.test.id
+        }
     }
 
     depends_on = [azurerm_virtual_network.test, azurerm_application_gateway.network]
