@@ -1,9 +1,5 @@
-variable "client_id" {
-    default = "__tf-clientid__"
-}
-variable "client_secret" {
-    default = "__tf-clientsecret__"
-}
+variable "client_id" {}
+variable "client_secret" {}
 
 variable "agent_count" {
     default = 2
